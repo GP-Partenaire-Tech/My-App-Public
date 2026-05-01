@@ -35,7 +35,7 @@ This module is completely decoupled from the User Interface (UI) and contains no
 
 ### Tech Stack
 *   **Language:** Dart
-*   **Database:** Isar Database (or SQLite/SQLCipher)
+*   **Database:** Isar Database
 *   **Encryption:** AES-256 (via client-provided master key)
 *   **Code Generation:** Freezed, Json_serializable
 
@@ -57,7 +57,7 @@ Este módulo está diseñado para ser totalmente independiente de la interfaz de
 
 ### Stack Tecnológico
 *   **Lenguaje:** Dart
-*   **Base de datos:** Isar Database (o SQLite/SQLCipher)
+*   **Base de datos:** Isar Database
 *   **Cifrado:** AES-256 (vía clave maestra proporcionada por el cliente)
 *   **Generación de código:** Freezed, Json_serializable
 
