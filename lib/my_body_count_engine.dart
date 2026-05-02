@@ -4,5 +4,9 @@
 library;
 
 export 'src/my_body_count_engine_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/database/database.dart' show AppDatabase;
+export 'src/database/tables/encounters_table.dart';
+export 'src/database/tables/partners_table.dart';
+export 'src/models/encounter.dart';
+export 'src/models/gender.dart';
+export 'src/models/partner.dart';
