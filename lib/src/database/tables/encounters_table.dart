@@ -22,7 +22,8 @@ class IntListConverter extends TypeConverter<List<int>, String> {
 
 class Encounters extends Table {
   TextColumn get id => text()();
-  TextColumn get partnerId => text().references(Partners, #id)();
+  TextColumn get partnerId =>
+      text().references(Partners, #id, onDelete: KeyAction.cascade)();
   DateTimeColumn get date => dateTime()();
   IntColumn get scoreAmbiance => integer().nullable()();
   IntColumn get scorePrelim => integer().nullable()();

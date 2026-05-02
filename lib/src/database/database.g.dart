@@ -766,7 +766,7 @@ class $EncountersTable extends Encounters
     type: DriftSqlType.string,
     requiredDuringInsert: true,
     defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'REFERENCES partners (id)',
+      'REFERENCES partners (id) ON DELETE CASCADE',
     ),
   );
   static const VerificationMeta _dateMeta = const VerificationMeta('date');
@@ -1385,6 +1385,16 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [partners, encounters];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'partners',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('encounters', kind: UpdateKind.delete)],
+    ),
+  ]);
 }
 
 typedef $$PartnersTableCreateCompanionBuilder =
