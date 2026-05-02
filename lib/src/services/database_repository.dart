@@ -92,6 +92,18 @@ class DatabaseRepository {
     return rows.map(_encounterFromRow).toList();
   }
 
+  Future<List<model.Encounter>> getEncountersBetweenDates(
+    DateTime start,
+    DateTime end,
+  ) async {
+    final query = db.select(db.encounters)
+      ..where((tbl) => tbl.date.isBetweenValues(start, end))
+      ..orderBy([(tbl) => OrderingTerm.asc(tbl.date)]);
+
+    final rows = await query.get();
+    return rows.map(_encounterFromRow).toList();
+  }
+
   model.Partner _partnerFromRow(Partner row) {
     return model.Partner(
       id: row.id,

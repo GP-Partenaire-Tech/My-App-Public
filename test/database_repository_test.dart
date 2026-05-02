@@ -103,4 +103,47 @@ void main() {
     final afterDelete = await repository.getEncountersForPartner(partnerId);
     expect(afterDelete, isEmpty);
   });
+
+  test('gets encounters between inclusive dates', () async {
+    const partnerId = 'partner-range';
+    await repository.savePartner(
+      Partner(
+        id: partnerId,
+        firstName: 'Robin',
+        gender: Gender.Other,
+        createdAt: DateTime(2026, 1, 1),
+      ),
+    );
+
+    await repository.saveEncounter(
+      Encounter(id: 'e-before', partnerId: partnerId, date: DateTime(2026, 1, 9)),
+    );
+    await repository.saveEncounter(
+      Encounter(
+        id: 'e-start',
+        partnerId: partnerId,
+        date: DateTime(2026, 1, 10),
+      ),
+    );
+    await repository.saveEncounter(
+      Encounter(id: 'e-mid', partnerId: partnerId, date: DateTime(2026, 1, 12)),
+    );
+    await repository.saveEncounter(
+      Encounter(id: 'e-end', partnerId: partnerId, date: DateTime(2026, 1, 15)),
+    );
+    await repository.saveEncounter(
+      Encounter(id: 'e-after', partnerId: partnerId, date: DateTime(2026, 1, 16)),
+    );
+
+    final encounters = await repository.getEncountersBetweenDates(
+      DateTime(2026, 1, 10),
+      DateTime(2026, 1, 15),
+    );
+
+    expect(encounters.map((encounter) => encounter.id).toList(), [
+      'e-start',
+      'e-mid',
+      'e-end',
+    ]);
+  });
 }
